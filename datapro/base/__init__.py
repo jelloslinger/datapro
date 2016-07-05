@@ -61,7 +61,7 @@ class BaseJob(IFramework):
             self.profiler = None
 
         self.identifier = identifier
-        self.status = None
+        self._status = None
 
         self.started_at = None
         self.stopped_at = None
@@ -92,19 +92,19 @@ class BaseJob(IFramework):
         return '[Job: {0}, Up Time: {1}, Status: {2}]'.format(
             self.identifier,
             self.up_time,
-            self.status
+            self._status
         )
 
     def start(self):
         """Start the ETL job
         """
         self.started_at = datetime.datetime.utcnow()
-        self.status = STATUS_START
+        self._status = STATUS_START
         logger.info(self.status)
 
     def stop(self):
         """Stop the ETL job
         """
-        self.status = STATUS_STOP
+        self._status = STATUS_STOP
         self.stopped_at = datetime.datetime.utcnow()
         logger.info(self.status)
